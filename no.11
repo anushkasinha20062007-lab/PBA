@@ -1,0 +1,23 @@
+def find_longest_line(filename):
+    longest_line = ""
+    longest_line_num = 0
+    
+    try:
+        with open(filename, 'r') as file:
+            # enumerate starts the line count at 1
+            for current_line_num, line in enumerate(file, 1):
+                # strip() removes trailing newlines (\n) and whitespace
+                clean_line = line.strip()
+                
+                if len(clean_line) > len(longest_line):
+                    longest_line = clean_line
+                    longest_line_num = current_line_num
+                    
+        print(f"Longest line: {longest_line}")
+        print(f"Line number: {longest_line_num}")
+        
+    except FileNotFoundError:
+        print(f"Error: The file '{filename}' was not found.")
+
+# Execute the function
+find_longest_line("lines.txt")
