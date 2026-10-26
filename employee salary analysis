@@ -1,0 +1,57 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Read employee details from the CSV file
+try:
+    df = pd.read_csv('employee.csv')
+    print("--- Task 1: CSV File successfully loaded ---\n")
+except FileNotFoundError:
+    print("Error: 'employee.csv' file not found. Please create the file first.")
+    exit()
+
+# 2. Display employee names, departments, and salaries
+print("--- Task 2: Employee Names, Departments, and Salaries ---")
+# Adjust column names if yours are named differently (e.g., 'Name', 'Department', 'Salary')
+print(df[['name', 'department', 'salary']])
+print("\n" + "="*50 + "\n")
+
+# 3. Calculate the average salary for each department
+print("--- Task 3: Average Salary for Each Department ---")
+avg_salary_dept = df.groupby('department')['salary'].mean()
+print(avg_salary_dept)
+print("\n" + "="*50 + "\n")
+
+# 4. Identify the employee receiving the highest salary
+print("--- Task 4: Employee with the Highest Salary ---")
+highest_salary_row = df.loc[df['salary'].idxmax()]
+print(f"Name: {highest_salary_row['name']}")
+print(f"Department: {highest_salary_row['department']}")
+print(f"Salary: {highest_salary_row['salary']}")
+print("\n" + "="*50 + "\n")
+
+# 5. Generate a bar chart comparing average salaries across departments
+plt.figure(figsize=(8, 5))
+avg_salary_dept.plot(kind='bar', color='skyblue', edgecolor='black')
+plt.title('Average Salary Across Departments')
+plt.xlabel('Department')
+plt.ylabel('Average Salary')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# 6. Generate a histogram showing the distribution of employee salaries
+plt.figure(figsize=(8, 5))
+plt.hist(df['salary'], bins=5, color='lightgreen', edgecolor='black')
+plt.title('Distribution of Employee Salaries')
+plt.xlabel('Salary Range')
+plt.ylabel('Number of Employees')
+plt.tight_layout()
+plt.show()
+name,department,salary
+Alice,HR,50000
+Bob,Engineering,85000
+Charlie,Marketing,60000
+David,Engineering,95000
+Emma,HR,55000
+Frank,Marketing,62000
+Grace,Sales,70000
